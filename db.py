@@ -1,7 +1,5 @@
 import pymysql
 from flask import jsonify
-from classes.characters import Character
-from classes.movies import Movie
 
 db_user = "marvelproject_admin"
 db_password = "admin"
