@@ -37,3 +37,22 @@ def create_record(new_record, table_name):
     except Exception as ex:
         conn.close()
         raise
+
+def delete_record(nametodelete, table_name):
+    try:
+        conn = open_connection()
+        with conn.cursor() as cursor:
+            if table_name == "movies":
+                query="""DELETE FROM movies_table WHERE name=('%s')"""%(nametodelete)
+                print('-------',query)
+                cursor.execute(query)
+            else:
+                query="""DELETE FROM character_table WHERE name=('%s')"""%(nametodelete)
+                print('-------',query)
+                cursor.execute(query)
+        conn.commit()
+        conn.close()
+        return "Record deleted successfully"
+    except Exception as ex:
+        conn.close()
+        raise
