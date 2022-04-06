@@ -17,9 +17,10 @@ def open_connection():
 def create_record(new_record, table_name):
     try:
         conn = open_connection()
+        #return ("successful connection")
         with conn.cursor() as cursor:
             if table_name == "movies":
-                result = cursor.execute("SELECT CHARACTER_ID FROM character_table WHERE NAME = %s;", (new_record.main_character))
+                result = cursor.execute("SELECT CHARACTER_ID FROM characters_table WHERE NAME = %s;", (new_record.main_character))
                 if result > 0:
                    character_id = cursor.fetchall()
 
@@ -28,7 +29,7 @@ def create_record(new_record, table_name):
                 else:
                     raise Exception("There is no character in the database")
             elif table_name == "characters":
-                cursor.execute("INSERT INTO character_table(NAME, GENDER, ACTOR, BIRTH_DATE, COUNTRY, AFFILIATION, SUPER_POWER, FIRST_APPEAREANCE, LAST_APPEAREANCE, DESCRIPTION) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);", 
+                cursor.execute("INSERT INTO characters_table (name, gender, actor, birth_date, country, affiliation, super_power, first_appearance, last_appearance, description) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
                 (new_record.name, new_record.gender, new_record.actor, new_record.birth_date, new_record.country, new_record.affiliation, new_record.super_power, new_record.first_appearance, new_record.last_appearance, new_record.description))
 
         conn.commit()
@@ -47,7 +48,7 @@ def delete_record(nametodelete, table_name):
                 print('-------',query)
                 cursor.execute(query)
             else:
-                query="""DELETE FROM character_table WHERE name=('%s')"""%(nametodelete)
+                query="""DELETE FROM characters_table WHERE name=('%s')"""%(nametodelete)
                 print('-------',query)
                 cursor.execute(query)
         conn.commit()
@@ -72,7 +73,7 @@ def get_records(table_name):
                 all_records = 'No records exist in the DB'
             conn.close()
             return all_records
-        except Exception as ex:
+    except Exception as ex:
             conn.close()
             raise
 
