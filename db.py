@@ -1,10 +1,10 @@
 import pymysql
 from flask import jsonify
 
-db_user = "marvelproject_admin"
-db_password = "admin"
-db_name = "marveldb"
-db_host = "34.89.114.158"
+db_user = ""
+db_password = ""
+db_name = ""
+db_host = ""
 
 def open_connection():
     try:
@@ -53,6 +53,42 @@ def delete_record(nametodelete, table_name):
         conn.commit()
         conn.close()
         return "Record deleted successfully"
+    except Exception as ex:
+        conn.close()
+        raise
+
+def get_records(table_name):
+    try:
+        conn = open_connection
+        with conn.cursor() as cursor:
+            if table_name == "movies_table":
+                result = cursor.execute('SELECT * FROM movies_table;')
+            else:
+                result = cursor.execute('SELECT * FROM characters_table;')
+            res = cursor.fetchall()
+            if result > 0:
+                all_records = jsonify(res)
+            else:
+                all_records = 'No records exist in the DB'
+            conn.close()
+            return all_records
+        except Exception as ex:
+            conn.close()
+            raise
+
+def update_records(u_name, upd_data, table_name):
+    try:
+        conn = open_connection()
+        with conn.cursor() as cursor:
+            if table_name == "movies_table":
+                for column in upd_data.keys:
+                    cursor.execute('UPDATE movies_table SET column = upd_data[column] WHERE name = u_name;')
+            else:
+                for column in upd_data.keys:
+                    cursor.execute('UPDATE characters_table SET column = upd_data[column] WHERE name = u_name;')
+            conn.commit()
+            conn.close()
+
     except Exception as ex:
         conn.close()
         raise
