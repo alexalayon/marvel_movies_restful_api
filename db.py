@@ -23,9 +23,8 @@ def create_record(new_record, table_name):
                 result = cursor.execute("SELECT CHARACTER_ID FROM characters_table WHERE NAME = %s;", (new_record.main_character))
                 if result > 0:
                    character_id = cursor.fetchall()
-
-                   cursor.execute("INSERT INTO movies_table(NAME, RELEASE_DATE, RATING, BUDGET, DURATION, GENRE, BOX_OFFICE, MAIN_CHARACTER, SUMMARY) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                   (new_record.name, new_record.release_date, new_record.rating, new_record.budget, new_record.duration, new_record.genre, new_record.box_office, character_id, new_record.summary))
+                   cursor.execute("INSERT INTO movies_table(name, rating, genre, budget, box_office, main_character, duration, release_date, summary) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                   (new_record.name, new_record.rating, new_record.genre, new_record.budget, new_record.box_office, character_id, new_record.duration,  new_record.release_date, new_record.summary))
                 else:
                     raise Exception("There is no character in the database")
             elif table_name == "characters":
