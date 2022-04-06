@@ -1,10 +1,10 @@
 import pymysql
 from flask import jsonify
 
-db_user = ""
-db_password = ""
-db_name = ""
-db_host = ""
+db_user = "admin"
+db_password = "admin"
+db_name = "marveldb"
+db_host = "34.105.129.246"
 
 def open_connection():
     try:
