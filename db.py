@@ -8,7 +8,7 @@ db_host = "34.105.129.246"
 
 def open_connection():
     try:
-        connection = pymysql.connect(host= db_host, user = db_user, password = db_password, db = db_name)
+        connection = pymysql.connect(host= db_host, user = db_user, password = db_password, db = db_name, cursorclass=pymysql.cursors.DictCursor)
     except pymysql.MySQLError as ex:
         raise
     return connection
