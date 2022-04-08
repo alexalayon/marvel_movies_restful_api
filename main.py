@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, json, request
 import json
-from db import create_record, delete_record, get_records, update_records
+from db import get_records, get_all_records, update_records, create_record, delete_record
+from external_api import get_external_streaming
 from classes.characters import Character
 from classes.movies import Movie
 
@@ -33,14 +34,14 @@ def create_character():
     return jsonify({'message':result}), 201
 
 
-@app.route("/movies/", methods=['DELETE'])
-def delete_movie():
+@app.route("/movies/<movie_name>", methods=['DELETE'])
+def delete_movie(movie_name):
     try:
         
             
 
-        movietodelete = request.args.get('movietodelete')
-        result = delete_record(movietodelete, "movies")
+#        movietodelete = request.args.get('movietodelete')
+        result = delete_record(movie_name, "movies")
         
         
     except Exception as ex:
@@ -48,14 +49,13 @@ def delete_movie():
 
     return jsonify({'message': result}), 201
     
-@app.route("/characters/", methods=['DELETE'])
-def delete_character():
+@app.route("/characters/<character_name>", methods=['DELETE'])
+def delete_character(character_name):
     try:
         
             
-
-        charactertodelete = request.args.get('charactertodelete')
-        result = delete_record(charactertodelete, "characters")
+#        charactertodelete = request.args.get('charactertodelete')
+        result = delete_record(character_name, "characters")
         
         
     except Exception as ex:
@@ -101,10 +101,13 @@ def update_characters(name):
 @app.route('/marvel/', methods = ['GET'])
 def get_all():
 #	return (resp.json())
-	return (jsonify(records))
+	records_1 = get_all_records("movies_table")
+	records_2 = get_all_records("characters_table")
+	return jsonify(records_1 + records_2)
 
 @app.route('/marvel/<data>/', methods=['GET'])
 def get_spe_data(data):
+	records = get_all_records("movies_table")
 	spe =  {data :'Not Found!'}
 	for item in records:
 		if 'movies' == data:
@@ -134,11 +137,6 @@ def get_spe_data_data_2(data, data_2):
 				spe = [items['description'] for items in item['Character']]
 				break
 	return jsonify(spe)
-	
-@app.route('/MARVEL/', methods=['GET'])
-def database_get():
-	return (database_resp.json())
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

@@ -21,11 +21,11 @@ def create_record(new_record, table_name):
 #        return ("successful connection")
         with conn.cursor() as cursor:
             if table_name == "movies":
-                result = cursor.execute("SELECT CHARACTER_ID FROM characters_table WHERE NAME = %s;", (new_record.main_character))
+                result = cursor.execute("SELECT ID FROM characters_table WHERE NAME = %s;", (new_record.main_character))
                 if result > 0:
                    character_id = cursor.fetchall()
                    cursor.execute("INSERT INTO movies_table(name, rating, genre, budget, box_office, main_character, duration, release_date, summary) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                   (new_record.name, new_record.rating, new_record.genre, new_record.budget, new_record.box_office, character_id, new_record.duration,  new_record.release_date, new_record.summary))
+                   (new_record.name, new_record.rating, new_record.genre, new_record.budget, new_record.box_office, character_id[0]['ID'], new_record.duration,  new_record.release_date, new_record.summary))
                 else:
                     raise Exception("There is no character in the database")
             elif table_name == "characters":
@@ -44,19 +44,40 @@ def delete_record(nametodelete, table_name):
         conn = open_connection()
         with conn.cursor() as cursor:
             if table_name == "movies":
-                query="""DELETE FROM movies_table WHERE name=('%s')"""%(nametodelete)
-                print('-------',query)
-                cursor.execute(query)
-            else:
-                query="""DELETE FROM characters_table WHERE name=('%s')"""%(nametodelete)
-                print('-------',query)
-                cursor.execute(query)
+#                query= "DELETE FROM movies_table WHERE name= '%s';", (nametodelete)
+                cursor.execute("DELETE FROM movies_table WHERE name = %s;", nametodelete)
+            elif table_name == "characters":
+#                query= "DELETE FROM characters_table WHERE name='%s';", (nametodelete)
+                cursor.execute("DELETE FROM characters_table WHERE name= %s;", nametodelete)
         conn.commit()
         conn.close()
         return "Record deleted successfully"
     except Exception as ex:
         conn.close()
         raise
+
+def get_all_records(table_name):
+    try:
+        conn = open_connection()
+        with conn.cursor() as cursor:
+             if table_name == "movies_table":
+                 result = cursor.execute('SELECT * FROM movies_table;')
+             else:
+                 result = cursor.execute('SELECT * FROM characters_table;')
+
+             res = cursor.fetchall()
+             
+             if result > 0:
+                 all_records = res
+             else:
+                 all_records = []
+             
+             conn.close()
+             return all_records
+    except Exception as ex:
+        conn.close()
+        raise
+
 
 #Samidha's code
 def get_records(table_name):
@@ -67,13 +88,16 @@ def get_records(table_name):
                  result = cursor.execute('SELECT name FROM movies_table;')
              else:
                  result = cursor.execute('SELECT name FROM characters_table;')
-                 res = cursor.fetchall()
-                 if result > 0:
-                     all_records = json.dumps(res)
-                 else:
-                     all_records = "No record exists"
-                 conn.close()
-                 return all_records
+             
+             res = cursor.fetchall()
+             
+             if result > 0:
+                 all_records = json.dumps(res)
+             else:
+                 all_records = "No record exists"
+             
+             conn.close()
+             return all_records
     except Exception as ex:
         conn.close()
         raise
