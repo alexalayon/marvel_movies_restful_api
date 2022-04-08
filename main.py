@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, json, request
-from db import create_record, delete_record
+import json
+from db import create_record, delete_record, get_records, update_records
 from classes.characters import Character
 from classes.movies import Movie
 
