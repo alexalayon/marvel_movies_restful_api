@@ -63,38 +63,37 @@ def delete_character():
     return jsonify({'message': result}), 201
     
 #Samidha's code    
-@app.route("/movies/<name>", methods=['GET', 'PUT'])
-def update_movie(name):
-    try:
-        if not request.json:
-            return jsonify({'error':'The request is not in json format'}), 400
+@app.route("/movies/<name>", methods=['PUT'])
+def update_movies(name):
+	try:
+		if not request.json:
+			return jsonify({'error':'The request is not in json format'}), 400
 
-            all_records = get_records("movies_table")
-            if all_records.name == name:
-                upd_data = request.json
-                update_record(name, upd_data, "movies_table")
-            else:
-                return jsonify({'error':'Movie does not exist'}), 404
-    except Exception as ex:
-        return jsonify({'error':'There is an error with ' + str(ex)}), 400
+		req = Movie(request.json)
+		all_records = get_records("movies_table")
+		res_json = json.loads(all_records)
+		for i in range(len(res_json)):
+			if name == res_json[i].get('name'):
+				res = update_records(name, req, "movies_table")
+				return res
+	except Exception as ex:
+		return({'error':'There is an error with ' + str(ex)}), 400
 
-    return jsonify({'status':'Movie details updated'}), 200
+@app.route("/characters/<name>", methods=['PUT'])
+def update_characters(name):
+	try:
+		if not request.json:
+			return jsonify({'error':'The request is not in json format'}), 400
 
-@app.route("/characters/<name>", methods=['GET','PUT'])
-def update_character(name):
-    try:
-        if not request.json:
-            return jsonify({'error':'ThThe request is not in json format'}), 400
-
-            all_records =  get_records("characters_table")
-            if all_records.name == name:
-                upd_data = request.json
-                update_records(name, upd_data, "characters_table")
-            else:
-                return jsonify({'error':'Character does not exist'}), 404
-    except Exception as ex:
-        return jsonify({'error':'There is an error with ' + str(ex)}), 400
-    return jsonify({'status':'Character details updated'}), 200
+		req = Character(request.json)
+		all_records = get_records("characters_table")
+		res_json = json.loads(all_records)
+		for i in range(len(res_json)):
+			if name == res_json[i].get('name'):
+				res = update_records(name, req, "characters_table")
+				return res
+	except Exception as ex:
+		return jsonify({'error':'There is an error with ' + str(ex)}), 400
     
     
 #Vaideshwar's code

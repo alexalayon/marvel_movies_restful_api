@@ -57,38 +57,55 @@ def delete_record(nametodelete, table_name):
         conn.close()
         raise
 
+#Samidha's code
 def get_records(table_name):
-    try:
-        conn = open_connection
-        with conn.cursor() as cursor:
-            if table_name == "movies_table":
-                result = cursor.execute('SELECT * FROM movies_table;')
-            else:
-                result = cursor.execute('SELECT * FROM characters_table;')
-            res = cursor.fetchall()
-            if result > 0:
-                all_records = jsonify(res)
-            else:
-                all_records = 'No records exist in the DB'
-            conn.close()
-            return all_records
-    except Exception as ex:
-            conn.close()
-            raise
+	try:
+		conn = open_connection()
+		with conn.cursor() as cursor:
+			if table_name == "movies_table":
+				result = cursor.execute('SELECT name FROM movies_table;')
+			else:
+				result = cursor.execute('SELECT name FROM characters_table;')
+			res = cursor.fetchall()
+			if result > 0:
+				all_records = json.dumps(res)
+			else:
+				all_records = "No record exists"
+			conn.close()
+			return all_records
+	except Exception as ex:
+		conn.close()
+		raise
 
-def update_records(u_name, upd_data, table_name):
-    try:
-        conn = open_connection()
-        with conn.cursor() as cursor:
-            if table_name == "movies_table":
-                for column in upd_data.keys:
-                    cursor.execute('UPDATE movies_table SET column = upd_data[column] WHERE name = u_name;')
-            else:
-                for column in upd_data.keys:
-                    cursor.execute('UPDATE characters_table SET column = upd_data[column] WHERE name = u_name;')
-            conn.commit()
-            conn.close()
-
-    except Exception as ex:
-        conn.close()
-        raise
+def update_records(name, req, table_name):
+	try:
+		conn = open_connection()
+		if table_name == 'movies_table':
+			with conn.cursor() as cursor:
+				n_rating = req.rating
+				n_genre = req.genre
+				n_budget = req.budget
+				n_box_office = req.box_office
+				n_main_character = req.main_character
+				n_duration = req.duration
+				n_release_date = req.release_date
+				n_summary = req.summary
+				cursor.execute('UPDATE movies_table SET rating = %s, genre = %s, budget = %s, box_office = %s, main_character = %s, duration = %s, release_date = %s, summary = %s where name= %s;', (n_rating, n_genre, n_budget, n_box_office, n_main_character, n_duration, n_release_date, n_summary, name))
+				conn.commit()
+				conn.close()
+				return jsonify({'status':'Movie details updated'}), 200
+		else:
+			with conn.cursor() as cursor:
+				n_gender = req.gender
+				n_actor = req.actor
+				n_birth_date = req.birth_date
+				n_country = req.country
+				n_affiliation = req.affiliation
+				n_super_power = req.super_power
+				n_first_appearance = req.first_appearance
+				n_last_appearance = req.last_appearance
+				n_description = req.description
+				cursor.execute('UPDATE characters_table SET gender = %s, actor = %s, birth_date = %s, country = %s, affiliation = %s, super_power = %s, first_appearance = %s, last_appearance = %s, description = %s WHERE name= %s;', (n_gender, n_actor, n_birth_date, n_country, n_affiliation, n_super_power, n_first_appearance, n_last_appearance, n_description, name))
+				conn.commit()
+				conn.close()
+				return jsonify({'status':'Character details updated'}), 200
