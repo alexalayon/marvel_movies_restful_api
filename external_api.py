@@ -16,4 +16,4 @@ def get_external_streaming(movie_name):
                 return data
                 
     except Exception as ex:
-        raise
+       return []
