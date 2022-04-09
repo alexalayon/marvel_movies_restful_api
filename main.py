@@ -146,20 +146,23 @@ def get_spe_data_data_2(data, data_2):
 
 @app.route('/marvel/movies/<data_2>?streaming_source=<streaming_parameter>/', methods=['GET'])
 def get_spe_data_data_2 (data_2, streaming_parameter):
-	spe =  {data_2 :'Table Not Found!'}
-	records_1 = get_all_records("movies_table")
+    try:
+        spe =  {data_2 :'Table Not Found!'}
+        records_1 = get_all_records("movies_table")
 
-	spe = []
-	for items in records_1:
-		spe.append(items['name'])
-		spe.append(items[data_2])
-#		break
+        spe = []
+        for items in records_1:
+            spe.append(items['name'])
+            spe.append(items[data_2])
+#		    break
 
-	if streaming_parameter == True:
-		streaming = get_external_streaming(data2)
-		return jsonify(spe + streaming)
-	else:
-		return jsonify(spe)
+        if streaming_parameter == True:
+            streaming = get_external_streaming(data2)
+            return jsonify(spe + streaming), 201
+        else:
+            return jsonify(spe), 201
+    except Exception as ex:
+        return jsonify({'error': str(ex)}), 400
 
 
 #@app.route('/MARVEL/external_api/<movie_name>', methods=['GET'])
