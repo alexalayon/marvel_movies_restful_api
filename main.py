@@ -99,45 +99,54 @@ def update_characters(name):
     
     
 #Vaideshwar's code
+
 @app.route('/marvel/', methods = ['GET'])
 def get_all():
-#	return (resp.json())
 	records_1 = get_all_records("movies_table")
 	records_2 = get_all_records("characters_table")
-	return jsonify(records_1 + records_2)
+	records = jsonify(records_1 + records_2)
+	return records
 
 @app.route('/marvel/<data>/', methods=['GET'])
 def get_spe_data(data):
 	records = get_all_records("movies_table")
-	spe =  {data :'Not Found!'}
-	for item in records:
-		if 'movies' == data:
-			spe = [items['Movies'] for items in records]
-			break
-		if 'characters' == data:
-			spe = [items['Character'] for items in records]
-			break
+	spe =  {data :'Table Not Found!'}
+	if 'movies' == data:
+		records = get_all_records("movies_table")
+		spe = records
+	#	break
+	if 'characters' == data:
+		records = get_all_records("characters_table")
+		spe = records
+	#	break
 	return jsonify(spe)
 
 @app.route('/marvel/<data>/<data_2>/', methods=['GET'])
 def get_spe_data_data_2(data, data_2):
-	spe =  {data_2 :'Not Found!'}
-	for item in records:
-		if 'movies' == data:
-			if 'name' == data_2:
-				spe = [items['name'] for items in item['Movies']]
-				break
-			elif 'summary' == data_2:
-				spe = [items['summary'] for items in item['Movies']]
-				break
-		if 'characters' == data:
-			if 'name' == data_2:
-				spe = [items['name'] for items in item['Character']]
-				break
-			elif 'description' == data_2:
-				spe = [items['description'] for items in item['Character']]
-				break
+	spe =  {data_2 :'Table Not Found!'}
+	records_1 = get_all_records("movies_table")
+	records_2 = get_all_records("characters_table")
+
+	if 'movies' == data:
+		records = records_1
+		spe = []
+		for items in records:
+			spe.append(items['name'])
+			spe.append(items[data_2])
+#			break
+	elif 'characters' == data:
+		records = records_2
+		spe = []
+		for items in records:
+			spe.append(items['name'])
+			spe.append(items[data_2])
+#			break
 	return jsonify(spe)
+
+@app.route('/MARVEL/external_api/<movie_name>', methods=['GET'])
+def get_external(movie_name):
+	var = get_external_streaming(movie_name)
+	return var
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, ssl_context='adhoc')

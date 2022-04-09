@@ -56,6 +56,7 @@ def delete_record(nametodelete, table_name):
         conn.close()
         raise
 
+#Vaidheshwar's code
 def get_all_records(table_name):
     try:
         conn = open_connection()
@@ -70,7 +71,7 @@ def get_all_records(table_name):
              if result > 0:
                  all_records = res
              else:
-                 all_records = []
+                 all_records = "No record exists"
              
              conn.close()
              return all_records
