@@ -64,9 +64,11 @@ resource identified by the request URI (so should be a“collection” URI)
 - Request body is empty.
 - e.g. DELETE /modules/<module-id>
   
-  ## DISCLAIMER
-This project is part of a cloud computing coursework taught by Dr. Sukhpal Gill at the Queen Mary University of London Electrical Engineering & Computer Science Department to create a prototype of a cloud application.
-<p align="center">
+  <p align="center">
   <img src="https://phpenthusiast.com/theme/assets/images/blog/what_is_rest_api.png" />
 </p>
+  
+  ## DISCLAIMER
+This project is part of a cloud computing coursework taught by Dr. Sukhpal Gill at the Queen Mary University of London Electrical Engineering & Computer Science Department to create a prototype of a cloud application.
+
 
