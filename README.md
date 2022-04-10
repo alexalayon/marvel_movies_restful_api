@@ -2,11 +2,13 @@
 <p align="center">
   <img src="https://cdn.shopify.com/s/files/1/1140/8354/articles/header_8bac5658-b4d6-49cb-9ccc-5be5042679b7_1600x.jpg?v=1616651617" />
 </p>
+
 ## Table of Contents
 - [About](#about)
 - [System Architecture](#system-architecture)
 - [Backend](#backend)
  - [Disclaimer](#disclaimer)
+
 ## About
 This Project Marvel Movies Restful Api is a developed as a part of our CLOUD COMPUTING MODULE whose goal is to apply and extend the techniques of different aspects of Cloud applications. The aim of the project is to help users gain knowledge on Marvel movies. The films are based on characters that appear in American comic books published by Marvel Comics. The shared universe, much like the original Marvel Universe in comic books, was established by crossing over common plot elements, settings, cast, and characters. So, to fecilitate the effective search we have created a database on Marvel Movies and Marvel Characters with important yet common features, which are a of much interest to the viewrs.
 
