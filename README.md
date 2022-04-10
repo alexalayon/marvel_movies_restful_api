@@ -52,4 +52,14 @@ the attached representation as a “subordinate” of the
 resource identified by the request URI (so should be a“collection” URI)
 - Request body contains the representation of the resource tobe created
 - e.g. POST /modules
-
+#### PUT 
+  It updates the representation of a resource identified by the request URI according to the attached representation
+- Request body contains the representation of the resource to be stored instead.
+- If the Request-URI refers to an already existing resource, then an update operation will happen, otherwise create operation should happen if Request-URI is a valid resourceURI.
+- e.g. PUT /modules/<module-id>
+  
+  ### DELETE
+  
+ Delete the identified resource
+- Request body is empty.
+- e.g. DELETE /modules/<module-id>
