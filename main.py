@@ -145,7 +145,7 @@ def get_spe_data_data_2(data, data_2):
 	return jsonify(spe)
 
 @app.route('/marvel/movies/<data_2>?streaming_source=<streaming_parameter>/', methods=['GET'])
-def get_spe_data_data_2 (data_2, streaming_parameter):
+def get_spe_data2_streaming(data_2, streaming_parameter):
     try:
         spe =  {data_2 :'Table Not Found!'}
         records_1 = get_all_records("movies_table")
