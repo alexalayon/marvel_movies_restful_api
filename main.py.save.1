@@ -146,18 +146,18 @@ def get_spe_data_data_2(data, data_2):
 
 
 
-@app.route('/marvel/find/movies/<data>/', methods=['GET'])
-def get_spe_data_data_2_find(data):
+@app.route('/marvel/find/movies/<data>/<data_2>/', methods=['GET'])
+def get_spe_data_data_2_find(data, data_2)
+	:
 	records = get_all_records("movies_table")
-	spe = []
-	flag = 0
 	for items in records:
 		if data == items['name']:
+			if data_2 == items:
+				spe = []
+				spe.append(items)
+				break
+			spe = []
 			spe.append(items)
-			flag = 1
-
-	if flag == 0:
-		spe = {data : "Not Found!"}
 	return jsonify(spe)
 
 

@@ -121,7 +121,7 @@ def get_spe_data(data):
 	#	break
 	return jsonify(spe)
 
-@app.route('/marvel/<data>/<data_2>/', methods=['GET'])
+@app.route('/marvel/<data>/<data_2>', methods=['GET'])
 def get_spe_data_data_2(data, data_2):
 	spe =  {data_2 :'Table Not Found!'}
 	records_1 = get_all_records("movies_table")
@@ -130,8 +130,8 @@ def get_spe_data_data_2(data, data_2):
 	if 'movies' == data:
 		records = records_1
 		spe = []
-		for items in records:
-			spe.append(items['name'])
+		spe.append(items[data_2]
+#		for items in records:			spe.append(items['name'])
 			spe.append(items[data_2])
 #			break
 	elif 'characters' == data:
@@ -143,25 +143,6 @@ def get_spe_data_data_2(data, data_2):
 #			break
 
 	return jsonify(spe)
-
-
-
-@app.route('/marvel/find/movies/<data>/', methods=['GET'])
-def get_spe_data_data_2_find(data):
-	records = get_all_records("movies_table")
-	spe = []
-	flag = 0
-	for items in records:
-		if data == items['name']:
-			spe.append(items)
-			flag = 1
-
-	if flag == 0:
-		spe = {data : "Not Found!"}
-	return jsonify(spe)
-
-
-
 
 @app.route('/marvel/movies/<data_2>?streaming_source=<streaming_parameter>/', methods=['GET'])
 def get_spe_data2_streaming(data_2, streaming_parameter):
