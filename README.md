@@ -27,5 +27,20 @@ Basic CRUD operations are possible by accessing the API routes via adding ``api/
 REST stands for Representation State Transfer. 
 The server responds to Create, Read, Update and Delete in a standard way.
 The idea behinf REST is to treat all server URL as access points for the various resourses on the server.
-REST is a client- server architecture for distributed applications
+REST is a client- server architecture for distributed applications which is just a set of guidelines and not a specific protocol.
+The server doesnot store any state about client session on the server side. Every HTTP request happens in complete isolation.
+The communication is directly done through HTTP (so a
+REST call is just a HTTP request). So all the interactions
+with a restful application should be encoded using HTTP
+methods:
+- GET, POST, PUT, DELETE
+#### GET
+Requests the state of an identified
+resource from the server
+- Request body is empty
+- Information can be encoded in the request path
+- Server returns a representation of the state of the resource
+- e.g.: GET /modules
+GET /modules/<module-id>
+
 
