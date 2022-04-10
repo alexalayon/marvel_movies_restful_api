@@ -163,7 +163,7 @@ def get_spe_data_data_2_find(data):
 
 
 
-@app.route('/marvel/movies/<data_2>?streaming_source=<streaming_parameter>/', methods=['GET'])
+@app.route('/marvel/movies/<data_2>/?streaming_source=<streaming_parameter>/', methods=['GET'])
 def get_spe_data2_streaming(data_2, streaming_parameter):
     try:
         records = get_all_records("movies_table")
