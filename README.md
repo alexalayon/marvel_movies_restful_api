@@ -18,3 +18,14 @@ This Project Marvel Movies Restful Api is a developed as a part of our CLOUD COM
 </p>
 The backend is a REST-based service interface for CRUD operations (for example GET, POST, PUT, DELETE) deployed via Google Cloud to facilitate scalable performance with our dockerized image. SSL deployments are facilitated through {{{Microsoft Azure and Heroku}}}. The node server interacts with Google API. Furthermore, our system uses a MYSQL external Cloud database (MongoDB) to securely store our community user information. 
 Using the Postman, we  interact with any available HTTP endpoint, including REST-enabled database endpoints. Instead of querying a database directly, we are using Postman to read and write to a database via a REST API
+
+## Backend
+It is advisable to use [Postman] for CRUD operations when accessing the backend.
+### CRUD Operations
+Basic CRUD operations are possible by accessing the API routes via adding ``api/movie`` and ``api/character`` at the end of the web address following the REST standard.
+### REST API 
+REST stands for Representation State Transfer. 
+The server responds to Create, Read, Update and Delete in a standard way.
+The idea behinf REST is to treat all server URL as access points for the various resourses on the server.
+REST is a client- server architecture for distributed applications
+
