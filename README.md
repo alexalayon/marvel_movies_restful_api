@@ -33,7 +33,10 @@ The communication is directly done through HTTP (so a
 REST call is just a HTTP request). So all the interactions
 with a restful application should be encoded using HTTP
 methods:
-- GET, POST, PUT, DELETE
+- GET
+- POST
+-  PUT 
+-  DELETE
 #### GET
 Requests the state of an identified
 resource from the server
@@ -43,4 +46,10 @@ resource from the server
 - e.g.: GET /modules
 GET /modules/<module-id>
 
+#### POST
+Creates a new resource according to
+the attached representation as a “subordinate” of the
+resource identified by the request URI (so should be a“collection” URI)
+- Request body contains the representation of the resource tobe created
+- e.g. POST /modules
 
