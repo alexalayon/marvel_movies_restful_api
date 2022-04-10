@@ -166,14 +166,11 @@ def get_spe_data_data_2_find(data):
 @app.route('/marvel/movies/<data_2>?streaming_source=<streaming_parameter>/', methods=['GET'])
 def get_spe_data2_streaming(data_2, streaming_parameter):
     try:
-        spe =  {data_2 :'Table Not Found!'}
-        records_1 = get_all_records("movies_table")
-
+        records = get_all_records("movies_table")
         spe = []
-        for items in records_1:
-            spe.append(items['name'])
-            spe.append(items[data_2])
-#		    break
+        for items in records:
+            if data == items['name']:
+                spe.append(items)
 
         if streaming_parameter == True:
             streaming = get_external_streaming(data2)
