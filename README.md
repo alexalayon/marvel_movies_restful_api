@@ -7,6 +7,7 @@
 - [About](#about)
 - [System Architecture](#system-architecture)
 - [Backend](#backend)
+- [Serving the application over HTTPS](#Serving the application over HTTPS)
  - [Disclaimer](#disclaimer)
 
 ## About
