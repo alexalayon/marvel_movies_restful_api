@@ -65,6 +65,9 @@ resource identified by the request URI (so should be a“collection” URI)
 - Request body is empty.
 - e.g. DELETE /modules/<module-id>
   
+  ## Serving the application over HTTPS
+  We used the GET operation to extract data from Internet.
+  
   <p align="center">
   <img src="https://phpenthusiast.com/theme/assets/images/blog/what_is_rest_api.png" />
 </p>
